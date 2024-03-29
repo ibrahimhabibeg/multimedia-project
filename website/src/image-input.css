@@ -1,0 +1,39 @@
+.browse-btn:hover {
+    text-decoration: underline;
+}
+
+.document-uploader {
+    border-radius: 8px;
+    border: 2px dashed rgba(255, 255, 255, 0.87);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    min-width: 450px;
+    min-height: 300px;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.upload-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.upload-info p {
+    font-weight: bold;
+}

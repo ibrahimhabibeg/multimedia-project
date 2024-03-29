@@ -1,0 +1,11 @@
+.upload-center{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+@media screen and (max-width: 900px) {
+    .upload-center{
+        flex-direction: column;
+    }
+}
