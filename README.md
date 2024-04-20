@@ -31,10 +31,10 @@ Open a terminal in the dithering-script folder.
 Run the script with the following command (replace arguments with your desired values):
 
 `
-python3 dither.py ../images/tea.jpg ./sample_result scu
+python3 dither.py ../images/scu.jpg ./sample_result scu
 `
 
-- ../images/tea.jpg: Path to the color image you want to convert.
+- ../images/scu.jpg: Path to the color image you want to convert.
 - ./sample_result: Folder path for saving the output monochrome image.
 - scu: Name for the output monochrome image (without extension).
 ### Transition Script:

@@ -7,38 +7,22 @@ NUMBER_IMAGES = 50
 DURATION = 30
     
 def createCrossImage(source, destination, alpha):
-    source = np.asarray(source)
-    destination = np.asarray(destination)
-    img_new = np.empty( source.shape )
-    for row in range(0, source.shape[0] ):
-        for col in range(0, source.shape[1] ):
-            for color in range(0, source.shape[2] ):
-                img_new[row][col][color] = (1-alpha)*source[row][col][color] + alpha*destination[row][col][color]
-    return Image.fromarray(img_new.astype(np.uint8))
+    return Image.fromarray(((1-alpha)*source + alpha*destination).astype(np.uint8))
     
 def crossDissolve(source, destination):
-    images = []
-    images.append(source)
-    for i in range(1, NUMBER_IMAGES+1):
-        images.append(createCrossImage(source, destination, i/NUMBER_IMAGES))
-    return images
+    source_arr = np.asarray(source)
+    destination_arr = np.asanyarray(destination)
+    return [createCrossImage(source_arr, destination_arr, i/NUMBER_IMAGES) for i in range(NUMBER_IMAGES+1)]
     
 def createDitherImage(source, destination, alpha):
-    source = np.asarray(source)
-    destination = np.asarray(destination)
-    img_new = np.copy(source)
-    for row in range(0, source.shape[0] ):
-        for col in range(0, int(source.shape[1] * alpha)):
-            for color in range(0, source.shape[2] ):
-                img_new[row][col][color] = destination[row][col][color]
+    cols_from_first = int(source.shape[1] * alpha)
+    img_new = np.concatenate((destination[:, :cols_from_first], source[:, cols_from_first:]), axis=1)
     return Image.fromarray(img_new.astype(np.uint8))
     
 def ditherDissolve(source, destination):
-    images = []
-    images.append(source)
-    for i in range(1, NUMBER_IMAGES+1):
-        images.append(createDitherImage(source, destination, i/NUMBER_IMAGES))
-    return images
+    source_arr = np.asarray(source)
+    destination_arr = np.asanyarray(destination)
+    return [createDitherImage(source_arr, destination_arr, i/NUMBER_IMAGES) for i in range(NUMBER_IMAGES+1)]
     
 
 if __name__ == "__main__":
@@ -53,6 +37,7 @@ if __name__ == "__main__":
             dir = path.join(getcwd(), f'{arguments.output}')
             if not path.isdir(dir):
                 mkdir(dir)
+            img2 = img2.resize((img1.width, img1.height))
             cross = crossDissolve(img1, img2)
             dither = ditherDissolve(img1, img2)
             cross[0].save(path.join(dir, f"{arguments.name}_cross.gif"), save_all=True, append_images=cross[1:], duration=DURATION, loop=0)
