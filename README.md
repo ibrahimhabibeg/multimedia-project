@@ -2,6 +2,9 @@
 
 This project explores different image manipulation techniques in Python and implements a user interface for applying them through a React website.
 
+## Live Website Link:
+https://multimedia-project.onrender.com/
+
 ## Project Goal:
 
 Convert color images to monochrome using various dithering algorithms.
